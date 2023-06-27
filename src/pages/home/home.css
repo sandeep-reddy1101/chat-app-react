@@ -1,0 +1,15 @@
+.home-container {
+    margin: 0px;
+    display: flex;
+    flex-direction: row;
+}
+
+.home-chat-list-container {
+    min-width: 450px;
+    height: 100vh; 
+}
+
+.home-chat-content-container {
+    height: 100vh;
+    width: 100%;
+}
