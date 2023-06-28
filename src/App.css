@@ -17,3 +17,7 @@
   ::-webkit-scrollbar-thumb:hover {
     background-color: #555; /* Set the color of the thumb on hover */
   }
+
+  .icon, .user-profile-pic {
+    cursor: pointer;
+  }

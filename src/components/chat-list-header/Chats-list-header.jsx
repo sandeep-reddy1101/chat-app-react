@@ -14,14 +14,14 @@ function ChatsListHeader() {
               <img
                 src="images/user-profile.avif"
                 alt="user profile"
-                className="header-image"
+                className="header-image user-profile-pic"
               />
             </div>
             <div className="chat-list-header-icons">
-              <GroupsIcon />
-              <DonutLargeIcon />
-              <MessageIcon />
-              <MoreVertIcon />
+              <GroupsIcon className='icon'/>
+              <DonutLargeIcon className='icon'/>
+              <MessageIcon className='icon'/>
+              <MoreVertIcon className='icon'/>
             </div>
         </div>
       </div>

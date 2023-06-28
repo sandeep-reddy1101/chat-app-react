@@ -7,11 +7,15 @@
 }
 
 .message-container {
-    padding: 10px
+    padding: 6px 7px 8px 9px;
+    margin-bottom: 3px;
+    border-radius: 8px;
 }
 
-.single-message-container {
-    margin-bottom: 3px;
+.message-time {
+    font-size: 11px;
+    margin-left: 6px;
+    margin-top: 6px;
 }
 
 .to-right {

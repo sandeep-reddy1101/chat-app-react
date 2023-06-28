@@ -28,7 +28,6 @@
     left: 15px;
     z-index: 100;
     transform: translateY(-50%);
-    cursor: pointer;
 }
 
 .chat-list-search-input-container {
@@ -39,7 +38,6 @@
 .chat-list-filter-icon {
     padding: 0px 8px;
     width: 42px;
-    cursor: pointer;
 }
 
 .input-back-icon {

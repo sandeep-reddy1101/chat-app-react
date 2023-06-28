@@ -1,0 +1,37 @@
+.chat-content-header {
+    height: 60px;
+    width: 100%;
+    background-color: #f0f2f5;
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.chat-content-user-info-container {
+    display: flex;
+}
+
+.chat-content-user-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.chat-content-header-user-info > p {
+    margin: 0px;
+    height: 21px;
+}
+
+.chat-content-header-user-name {
+    font-size: 16px;
+}
+
+.click-here-for-contact-information {
+    font-size: 13px;
+}
+
+.chat-content-header-icons > span {
+    padding: 8px;
+}

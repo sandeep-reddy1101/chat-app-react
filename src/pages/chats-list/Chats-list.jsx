@@ -110,18 +110,18 @@ function ChatsList() {
       <ChatsListHeader />
       <ChatsListSearch />
       <div className="contacts-list-main-conatiner">
-      {friendsList.map((item, key) => {
-        return (
-          <div key={key}>
-            <ChatInfo
-              imageUrl={item.imageUrl}
-              lastMessage={item.lastMessage}
-              lastMessageTime={item.lastMessageTime}
-              friendName={item.name}
-            />
-          </div>
-        );
-      })}
+        {friendsList.map((item, key) => {
+          return (
+            <div key={key}>
+              <ChatInfo
+                imageUrl={item.imageUrl}
+                lastMessage={item.lastMessage}
+                lastMessageTime={item.lastMessageTime}
+                friendName={item.name}
+              />
+            </div>
+          );
+        })}
       </div>
     </div>
   );

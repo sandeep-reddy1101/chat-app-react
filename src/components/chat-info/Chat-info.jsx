@@ -8,7 +8,7 @@ function ChatInfo({ imageUrl, friendName, lastMessage, lastMessageTime }) {
         <img
           src={imageUrl ? imageUrl : "images/user-profile.avif"}
           alt="abc"
-          className="chat-list-friend-profile-image"
+          className="chat-list-friend-profile-image user-profile-pic"
         />
       </div>
       <div className="chat-info-items">

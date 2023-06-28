@@ -27,16 +27,16 @@ function ChatsListSearch() {
           onBlur={handleBlur}
         />
         {viewSearchIcon ? (
-          <span className="input-search-icon">
+          <span className="input-search-icon icon">
             <SearchIcon />
           </span>
         ) : (
-          <span className="input-back-icon">
+          <span className="input-back-icon icon">
             <ArrowBackIcon />
           </span>
         )}
       </div>
-      <div className="chat-list-filter-icon">
+      <div className="chat-list-filter-icon icon">
         <FilterListIcon />
       </div>
     </div>
