@@ -5,6 +5,7 @@ import ChatsList from "../chats-list/Chats-list";
 import ChatContent from "../chat-content/Chat-content";
 
 function Home() {
+  console.log(new Date().getTime())
   return (
     <div className="home-container">
       <div className="home-chat-list-container">

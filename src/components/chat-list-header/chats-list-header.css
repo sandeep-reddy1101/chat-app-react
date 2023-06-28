@@ -2,6 +2,7 @@
     width: 100%;
     height: 60px;
     background-color: #f0f2f5;
+    border-right: 1px solid lightgrey;
 }
 
 .chat-list-header {
@@ -28,4 +29,5 @@
 
 .header-image {
     width: 100%;
+    border-radius: 50%;
 }

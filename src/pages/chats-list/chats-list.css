@@ -1,0 +1,11 @@
+.chat-list-main-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.contacts-list-main-conatiner{
+    flex-grow: 1;
+    overflow-y: auto;
+}
+

@@ -1,0 +1,23 @@
+.background-green {
+    background-color: #d9fdd3;
+}
+
+.background-white {
+    background-color: #fff;
+}
+
+.message-container {
+    padding: 10px
+}
+
+.single-message-container {
+    margin-bottom: 3px;
+}
+
+.to-right {
+    justify-self: end;
+}
+
+.to-left {
+    justify-self: start;
+}

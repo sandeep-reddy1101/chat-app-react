@@ -1,0 +1,19 @@
+/* Customize the scrollbar */
+::-webkit-scrollbar {
+    width: 4px; /* Set the width of the scrollbar */
+  }
+  
+  /* Customize the scrollbar track */
+  ::-webkit-scrollbar-track {
+    background-color: #f1f1f1; /* Set the background color of the track */
+  }
+  
+  /* Customize the scrollbar thumb */
+  ::-webkit-scrollbar-thumb {
+    background-color: lightgrey; /* Set the color of the thumb */
+  }
+  
+  /* Customize the scrollbar thumb on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #555; /* Set the color of the thumb on hover */
+  }

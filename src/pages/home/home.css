@@ -6,10 +6,18 @@
 
 .home-chat-list-container {
     min-width: 450px;
-    height: 100vh; 
 }
 
 .home-chat-content-container {
-    height: 100vh;
     width: 100%;
+}
+
+.home-container, .home-chat-list-container, .home-chat-content-container {
+    height: 100%;
+}
+
+@media (max-width: 768px) {
+    .home-chat-list-container {
+        min-width: 350px;
+    }
 }
