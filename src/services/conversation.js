@@ -39,4 +39,4 @@ export const conversation = [
     {user: 'friend',message: "goind good", time:1687898889310},
     {user: 'friend',message: "yours", time:1687898889328},
     {user: 'you',message: "so far so good", time:1687898889331}
-]
+].reverse();
