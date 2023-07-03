@@ -51,7 +51,7 @@ function ChatsListSearch() {
             <SearchIcon />
           </span>
         ) : (
-          <span className="input-back-icon icon">
+          <span className="input-back-icon icon" onClick={handleClearOnClick}>
             <ArrowBackIcon />
           </span>
         )}

@@ -22,6 +22,7 @@ export const addContact = (userId, contactObj) => {
     userId: userId,
     contactObj: JSON.stringify(contactObj),
   };
+  console.log("user id >>> ", userId)
   return axios
     .post(`${backendAPI}/users/add-contact`, body)
     .then((res) => res.data)

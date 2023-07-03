@@ -44,9 +44,30 @@ const searchContactsSlice = createSlice({
 
 export const { clearSearch, updateSearch } = searchContactsSlice.actions;
 
+
+const chatInitialState = {userId: '', friendId: '', friendPhoneNo: '', messages: [], friendName: ''};
+const chatSlice = createSlice({
+  name: "chat",
+  initialState: {value: chatInitialState},
+  reducers: {
+    updateChat: (state, action) => {
+      state.value = action.payload
+    },
+    clearChat: (state) => {
+      state.value = chatInitialState
+    },
+    addMessage: (state, action) => {
+      state.value.messages.push(action.payload)
+    }
+  }
+})
+
+export const { updateChat, clearChat, addMessage } = chatSlice.actions;
+
 export const store = configureStore({
   reducer: {
     user: userInfoSlice.reducer,
-    searchContacts: searchContactsSlice.reducer
+    searchContacts: searchContactsSlice.reducer,
+    chat: chatSlice.reducer,
   },
 });

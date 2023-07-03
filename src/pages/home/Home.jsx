@@ -6,11 +6,14 @@ import ChatContent from "../chat-content/Chat-content";
 // import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getUserInfoFromLocal } from "../../services/localStorage";
+import { connect } from "../../services/socket";
+import { useSelector } from "react-redux";
 
 function Home() {
 
-  // const userInfo = useSelector((state) => state.user.value);
+  const userId = useSelector((state) => state.user.value.userId);
   const navigate = useNavigate();
+  
 
   const checkUserLogin = () => {
     const local = JSON.parse(getUserInfoFromLocal());
@@ -20,8 +23,11 @@ function Home() {
   }
 
   useEffect(() => {
-    checkUserLogin()
-  }, [])
+    checkUserLogin();
+    if(userId){
+      connect(userId);
+    }
+  }, [userId])
 
   return (
     <div className="home-container">

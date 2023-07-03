@@ -1,0 +1,41 @@
+.contact-info-main-container {
+    width: 100%;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    background-color: white;
+    cursor: pointer;
+    border-bottom: 1px solid lightgrey;
+}
+
+.contact-info-main-container:hover {
+    background-color: #F5F5F5;
+}
+
+.contact-list-friend-name {
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.contact-info-items {
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0px 15px 0px 0px;
+    padding: 12px 0px;
+    
+}
+
+.contact-info-user-profile-pic {
+    min-width: 20%;
+    display: flex;
+    justify-content: center;
+}
+
+.contact-list-friend-profile-image {
+    width: 49px;
+    height: 49px;
+    border-radius: 50%;
+}

@@ -5,6 +5,7 @@ import ChatsListSearch from "../../components/chat-list-search/Chats-list-search
 import ChatInfo from "../../components/chat-info/Chat-info";
 import { useSelector } from "react-redux";
 import NoChats from "../../components/no-chats-in-chat-list/NoChats";
+import ContactInfo from "../../components/contact-info/ContactInfo";
 
 function ChatsList() {
   const userInfo = useSelector((state) => state.user.value);
@@ -127,8 +128,19 @@ export default ChatsList;
 
 const renderUI = (searchResults, userInfo) => {
   if (searchResults.search) {
-    console.log("searched results to render >>> ", searchResults)
-    return <div>searched contacts</div>;
+    const serchedContacts = searchResults.resultContacts;
+    return (
+      <div className="contacts-list-main-conatiner">
+        <p className="text-center m-3">Searched contacts result</p>
+        {serchedContacts.map((item, key) => {
+          return (
+            <div key={key}>
+              <ContactInfo friendName={item.name} friendPhoneNo={item.phoneNo}/>
+            </div>
+          )
+        })}
+      </div>
+    );
   } else {
     if (userInfo.chats.length > 0) {
       return (

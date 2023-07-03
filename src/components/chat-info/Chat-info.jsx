@@ -1,9 +1,29 @@
 import React from "react";
 import "./chat-info.css";
+import { useDispatch, useSelector } from "react-redux";
 
-function ChatInfo({ imageUrl, friendName, lastMessage, lastMessageTime }) {
+function ChatInfo({
+  imageUrl = "images/user-profile.avif",
+  friendName,
+  lastMessage = "",
+  lastMessageTime = null,
+}) {
+  const userInfo = useSelector(state => state.user.value);
+  const dispatch = useDispatch();
+
+  const handleOnclick = () => {
+    const actionPayload = {
+      userId: userInfo.userId,
+      friendId: "",
+      friendPhoneNo: friendPhoneNo,
+      messages: [], // here we have to send the conversation : TODO
+      friendName: friendName
+    };
+    dispatch(updateChat(actionPayload));
+  }
+
   return (
-    <div className="chat-info-main-container">
+    <div className="chat-info-main-container" onClick={handleOnclick}>
       <div className="chat-info-user-profile-pic">
         <img
           src={imageUrl ? imageUrl : "images/user-profile.avif"}

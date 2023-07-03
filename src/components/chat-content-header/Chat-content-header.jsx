@@ -4,7 +4,7 @@ import './chat-content-header.css';
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import SearchIcon from "@mui/icons-material/Search";
 
-function ChatContentHeader() {
+function ChatContentHeader({imageUrl = "images/user-profile.avif", friendName}) {
   return (
     <div className="chat-content-header">
         <div className="chat-content-user-info-container">
@@ -14,7 +14,7 @@ function ChatContentHeader() {
             className="chat-content-user-image user-profile-pic"
           />
           <div className="chat-content-header-user-info">
-            <p className="chat-content-header-user-name">Me</p>
+            <p className="chat-content-header-user-name">{friendName}</p>
             <p className="click-here-for-contact-information">
               Click here for contact information
             </p>

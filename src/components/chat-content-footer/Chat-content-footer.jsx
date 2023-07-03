@@ -6,24 +6,36 @@ import KeyboardVoiceIcon from "@mui/icons-material/KeyboardVoice";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 
 import { socket } from "../../services/socket";
+import { useDispatch, useSelector } from "react-redux";
+import { addMessage } from "../../store";
 
 function ChatContentFooter() {
+  const userId = useSelector(state => state.user.value.userId);
+  const chat = useSelector(state => state.chat.value);
+  const dispatch = useDispatch();
     
   const handleKeyPress = (e) => {
-    console.log("key pressed", e.key);
     if (e.key === "Enter") {
       sendMessage();
     }
   };
 
   const sendMessage = () => {
-    let message = document.getElementById("message-text").value;
-    socket.emit("message", message);
+    let message = document.getElementById("message-text");
+    const messageData = {
+      userId: userId,
+      friendPhoneNo: chat.friendPhoneNo,
+      friendUserId: chat.friendUserId,
+      message: message.value
+    }
+    dispatch(addMessage({user: 'you',message: message.value, time:new Date().getTime()}));
+    socket.emit("send message", messageData);
+    message.value = "";
   };
 
   useEffect(() => {
     socket.on("message", (data) => {
-      console.log(data);
+      console.log("response from server >>> ", data)
     });
 
   }, []);
