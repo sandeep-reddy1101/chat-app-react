@@ -5,7 +5,7 @@ import SentimentSatisfiedAltIcon from "@mui/icons-material/SentimentSatisfiedAlt
 import KeyboardVoiceIcon from "@mui/icons-material/KeyboardVoice";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 
-import { socket } from "../../services/socket";
+import { getSocket, sendMessageThroughSocket } from "../../services/socket";
 import { useDispatch, useSelector } from "react-redux";
 import { addMessage } from "../../store";
 
@@ -13,6 +13,7 @@ function ChatContentFooter() {
   const userId = useSelector(state => state.user.value.userId);
   const chat = useSelector(state => state.chat.value);
   const dispatch = useDispatch();
+  const socket = getSocket();
     
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
@@ -29,16 +30,15 @@ function ChatContentFooter() {
       message: message.value
     }
     dispatch(addMessage({user: 'you',message: message.value, time:new Date().getTime()}));
-    socket.emit("send message", messageData);
+    sendMessageThroughSocket(messageData);
     message.value = "";
   };
 
   useEffect(() => {
     socket.on("message", (data) => {
-      console.log("response from server >>> ", data)
-    });
-
-  }, []);
+      console.log(data)
+    })
+  }, [socket]);
 
 
   return (
