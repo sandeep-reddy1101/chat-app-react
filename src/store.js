@@ -88,7 +88,7 @@ const contactsSlice = createSlice({
       const obj = action.payload;
       const arr = state.value;
       const newArr = arr.map((contact) => {
-        if(obj.receiverId === contact.receiverId){
+        if(obj.receiverId === contact.contactUserId){
           contact.chatId = obj.chatId;
           contact.active = true,
           contact.lastMessageInfo = obj.lastMessageInfo

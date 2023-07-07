@@ -37,7 +37,7 @@ export const listenToSendMessageResponseToContact = (dispatch) => {
       dispatch(
         updateContact({
           chatId: messageData[0]._id,
-          receiverId: messageData[0].chat.receiverId,
+          receiverId: messageData[0].chat[0].receiverId,
           lastMessageInfo: messageData[0].chat[0],
         })
       );
