@@ -3,38 +3,30 @@ import "./home.css";
 
 import ChatsList from "../chats-list/Chats-list";
 import ChatContent from "../chat-content/Chat-content";
-// import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getUserInfoFromLocal } from "../../services/localStorage";
-import {
-  connect,
-  getSocket,
-} from "../../services/socket";
-import { useSelector } from "react-redux";
+import {listenToAllReceiverMessages, listenToConnect, listenToMappingMessages, listenToSendMessageResponseToContact, mapSocketIds, socket } from "../../services/socket";
+import { useDispatch } from "react-redux";
 
 function Home() {
-  const userId = useSelector((state) => state.user.value.userId);
   const navigate = useNavigate();
-  const socket = getSocket();
+  const dispatch = useDispatch()
 
   const checkUserLogin = () => {
     const local = JSON.parse(getUserInfoFromLocal());
     if (!(local && local.login)) {
       navigate("/login");
+    }else{
+      mapSocketIds(local.userId)
     }
   };
 
   useEffect(() => {
     checkUserLogin();
-    if (userId) {
-      connect(userId);
-    }
-    socket.on("broadcast", (data) => {
-      console.log(data)
-    })
-    socket.on("connect", () => {
-      console.log(socket.id);
-    });
+    listenToConnect();
+    listenToMappingMessages();
+    listenToSendMessageResponseToContact(dispatch);
+    listenToAllReceiverMessages(dispatch)
   }, [socket]);
 
   return (

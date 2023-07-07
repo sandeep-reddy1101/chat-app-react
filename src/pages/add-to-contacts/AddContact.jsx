@@ -7,8 +7,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addContact } from "../../services/post";
-import { updateContact } from "../../store";
 import { getUserInfoFromLocal } from "../../services/localStorage";
+import { pushContactToList } from "../../store";
 
 function AddContact() {
     const dispatch = useDispatch();
@@ -20,8 +20,7 @@ function AddContact() {
       .string()
       .matches("^[0-9]{10}$", "Phone number is not valid")
       .required("phone no is required"),
-    name: yup.string().required("Name is required"),
-    nickName: yup.string(),
+    nickName: yup.string().required("Name is required"),
   });
 
   const {
@@ -33,9 +32,9 @@ function AddContact() {
   });
 
   const formSubmit = (data) => {
-    addContact(userInfo.userId, data).then((backendResponse) => {
+    addContact(userInfo.userId, data.nickName, data.phoneNo).then((backendResponse) => {
         if(backendResponse.flag){
-            dispatch(updateContact(data))
+            dispatch(pushContactToList(backendResponse.data[0]))
             navigate('/');
         }else{
             console.log("some error occured in backend >>> ", backendResponse.message)
@@ -63,16 +62,9 @@ function AddContact() {
             <input
               type="text"
               placeholder="Name of the contact"
-              {...register("name")}
-            />
-            <small className="text-danger">{errors.name?.message}</small>
-          </div>
-          <div className="input-container">
-            <input
-              type="text"
-              placeholder="Nick name (optional)"
               {...register("nickName")}
             />
+            <small className="text-danger">{errors.name?.message}</small>
           </div>
           <div className="input-container">
             <input

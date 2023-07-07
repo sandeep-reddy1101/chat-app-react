@@ -12,7 +12,7 @@ import { clearSearch } from "../../store";
 function ChatsListSearch() {
   const [viewSearchIcon, setViewSearchIcon] = useState(true);
   const [viewClearIcon, setViewClearIcon] = useState(false);
-  const userContacts = useSelector((state) => state.user.value.contacts);
+  const userContacts = useSelector((state) => state.contacts.value);
   const dispatch = useDispatch();
 
   const handleFocus = () => {

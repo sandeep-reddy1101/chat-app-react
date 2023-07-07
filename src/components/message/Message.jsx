@@ -1,10 +1,14 @@
 import React from "react";
 import "./message.css";
+import { useSelector } from "react-redux";
+import { formatTime } from "../../services/functions";
 
 
-function Message({ user, message, time }) {
-  const messageClasses = user === "you" ? "to-right background-green" : "to-left background-white";
-  const messageTime = new Date(time).getHours() + ":" + new Date(time).getMinutes();
+function Message({ senderId, message, time }) {
+  const userId = useSelector(state => state.user.value.userId);
+  const messageClasses = senderId === userId ? "to-right background-green" : "to-left background-white";
+  // const messageTime = new Date(time).getHours() + ":" + new Date(time).getMinutes();
+  const messageTime = formatTime(time)
 
   return (
     <div className={messageClasses + " message-container"}>

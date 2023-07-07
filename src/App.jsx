@@ -9,9 +9,9 @@ import AddContact from "./pages/add-to-contacts/AddContact";
 import Signup from "./pages/signup/SignUp";
 import { useEffect } from "react";
 import { getUserInfoFromLocal } from "./services/localStorage";
-import { getUserWithUserId } from "./services/get";
+import { getUserContacts, getUserWithUserId } from "./services/get";
 import { useDispatch } from "react-redux";
-import { login } from "./store";
+import { initializeContacts, login } from "./store";
 
 function App() {
   const dispatch = useDispatch();
@@ -19,13 +19,33 @@ function App() {
   const localStorageUserLogin = () => {
     const local = JSON.parse(getUserInfoFromLocal());
     if (local && local.login) {
-      getUserWithUserId(local.userId).then((userData) => {
-        if (userData.flag) {
-          const userInformation = userData.data[0];
-          disptachUserDataToStore(userInformation)
-        }
-      });
+      getUserWithUserId(local.userId)
+        .then((userData) => {
+          if (userData.flag) {
+            const userInformation = userData.data;
+            disptachUserDataToStore(userInformation);
+            loadContactsInStore(local.userId);
+          } else {
+            console.log("Error in app component >>> ", userData.message);
+          }
+        })
+        .catch((err) => {
+          console.log("Error occured in app component >>> ", err.message);
+        });
     }
+  };
+
+  const loadContactsInStore = (userId) => {
+    getUserContacts(userId).then((contactsResponse) => {
+      if (contactsResponse.flag) {
+        dispatch(initializeContacts(contactsResponse.data));
+      } else {
+        console.log(
+          "Failed to load the contacts in app component when page refreshes >>> ",
+          contactsResponse.message
+        );
+      }
+    });
   };
 
   const disptachUserDataToStore = (userInformation) => {
@@ -35,11 +55,9 @@ function App() {
       userId: userInformation._id,
       firstName: userInformation.firstName,
       lastName: userInformation.lastName,
-      chats: userInformation.chats,
-      contacts: userInformation.contacts,
     };
     dispatch(login(actionPayload));
-  }
+  };
 
   useEffect(() => {
     localStorageUserLogin();

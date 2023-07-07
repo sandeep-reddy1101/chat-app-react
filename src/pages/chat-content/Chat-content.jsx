@@ -8,7 +8,8 @@ import ChatContentFooter from "../../components/chat-content-footer/Chat-content
 import { useSelector } from "react-redux";
 
 function ChatContent() {
-  const chat = useSelector(state => state.chat.value);
+  const chat = useSelector((state) => state.chat.value);
+
   const conversation = chat.messages;
 
   const scrollToBottom = () => {
@@ -17,27 +18,39 @@ function ChatContent() {
   };
 
   useEffect(() => {
-    scrollToBottom();
+    if(chat.receiverId){
+      scrollToBottom();
+    }
   }, []);
 
   return (
-    <div className="chat-content-main-container">
-      <ChatContentHeader friendName={chat.friendName}/>
-      <div className="chat-content px-3 pb-2" id="chat-content-messages">
-        {conversation.map((item, key) => {
-          return (
-            <div key={key} className="single-message">
-              <Message
-                message={item.message}
-                user={item.user}
-                time={item.time}
-              />
+    <>
+      {chat.receiverId ? (
+        <>
+          <div className="chat-content-main-container">
+            <ChatContentHeader friendName={chat.nickName} />
+            <div className="chat-content px-3 pb-2" id="chat-content-messages">
+              {conversation.length > 0 && conversation.map((item, key) => {
+                return (
+                  <div key={key} className="single-message">
+                    <Message
+                      message={item.message}
+                      senderId={item.senderId}
+                      time={item.time}
+                    />
+                  </div>
+                );
+              })}
             </div>
-          );
-        })}
-      </div>
-      <ChatContentFooter />
-    </div>
+            <ChatContentFooter />
+          </div>
+        </>
+      ) : (
+        <>
+          <div>No chat selected</div>
+        </>
+      )}
+    </>
   );
 }
 

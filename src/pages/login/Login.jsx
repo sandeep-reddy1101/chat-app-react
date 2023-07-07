@@ -5,9 +5,9 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Link, useNavigate } from "react-router-dom";
-import { verifyUserLogin } from "../../services/get";
+import { getUserContacts, verifyUserLogin } from "../../services/get";
 import { useDispatch } from "react-redux";
-import { login } from "../../store";
+import { initializeContacts, login } from "../../store";
 import { setUserInfoToLocal } from "../../services/localStorage";
 
 function Login() {
@@ -30,25 +30,34 @@ function Login() {
     resolver: yupResolver(schema),
   });
 
+  const loadUserContacts = (userId) => {
+    getUserContacts(userId).then((contactsResponse) => {
+      if(contactsResponse.flag) {
+        dispatch(initializeContacts(contactsResponse.data));
+      }
+    }).catch((err) => {
+      console.log("error in login page load user contacts funtion >>> ", err.message)
+    })
+  }
+
   const formSubmit = (data) => {
     verifyUserLogin(data.phoneNo, data.password).then((backendResponse) => {
       if (backendResponse.flag) {
-        const userData = backendResponse.data[0];
+        const userData = backendResponse.data;
         const actionPayload = {
           login: true,
           phoneNo: userData.phoneNo,
           userId: userData._id,
           firstName: userData.firstName,
           lastName: userData.lastName,
-          chats: userData.chats,
-          contacts: userData.contacts,
         };
         dispatch(login(actionPayload));
         setUserInfoToLocal(JSON.stringify({login: true, userId: userData._id}));
+        loadUserContacts(actionPayload.userId);
         navigate("/");
       } else {
         console.log(
-          "some error occured in the backend >>> ",
+          "Error occurred in login page while verifying user >>> ",
           backendResponse.message
         );
       }

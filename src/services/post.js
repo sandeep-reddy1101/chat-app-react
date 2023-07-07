@@ -17,14 +17,14 @@ export const insertUser = (firstName, lastName, phoneNo, password) => {
     });
 };
 
-export const addContact = (userId, contactObj) => {
+export const addContact = (userId, nickName, contactPhoneNo) => {
   const body = {
     userId: userId,
-    contactObj: JSON.stringify(contactObj),
+    nickName: nickName,
+    contactPhoneNo: contactPhoneNo
   };
-  console.log("user id >>> ", userId)
   return axios
-    .post(`${backendAPI}/users/add-contact`, body)
+    .post(`${backendAPI}/contacts/create-contact`, body)
     .then((res) => res.data)
     .catch((err) => {
       console.log(err);

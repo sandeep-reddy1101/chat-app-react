@@ -5,15 +5,13 @@ import SentimentSatisfiedAltIcon from "@mui/icons-material/SentimentSatisfiedAlt
 import KeyboardVoiceIcon from "@mui/icons-material/KeyboardVoice";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 
-import { getSocket, sendMessageThroughSocket } from "../../services/socket";
 import { useDispatch, useSelector } from "react-redux";
 import { addMessage } from "../../store";
+import { listenToSendMessageResponseToChat, sendMessageThroughSocketToChat, sendMessageThroughSocketToContact } from "../../services/socket";
 
 function ChatContentFooter() {
-  const userId = useSelector(state => state.user.value.userId);
   const chat = useSelector(state => state.chat.value);
   const dispatch = useDispatch();
-  const socket = getSocket();
     
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
@@ -24,21 +22,24 @@ function ChatContentFooter() {
   const sendMessage = () => {
     let message = document.getElementById("message-text");
     const messageData = {
-      userId: userId,
-      friendPhoneNo: chat.friendPhoneNo,
-      friendUserId: chat.friendUserId,
-      message: message.value
+      senderId: chat.senderId,
+      receiverId: chat.receiverId,
+      message: message.value,
+      time: new Date().getTime()
     }
-    dispatch(addMessage({user: 'you',message: message.value, time:new Date().getTime()}));
-    sendMessageThroughSocket(messageData);
+    if(chat.chatId){
+      sendMessageThroughSocketToChat(chat.chatId, messageData);
+    }else{
+      sendMessageThroughSocketToContact(messageData);
+    }
+    dispatch(addMessage(messageData));
     message.value = "";
+    listenToSendMessageResponseToChat(dispatch, messageData)
   };
 
   useEffect(() => {
-    socket.on("message", (data) => {
-      console.log(data)
-    })
-  }, [socket]);
+    
+  }, []);
 
 
   return (
