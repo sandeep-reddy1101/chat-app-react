@@ -14,6 +14,7 @@ function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  // Login form schema using yup
   const schema = yup.object().shape({
     phoneNo: yup
       .string()
@@ -22,6 +23,7 @@ function Login() {
     password: yup.string().required("Password is required").min(8),
   });
 
+  // creating the register and handleSubmit for the login form using above schema
   const {
     register,
     handleSubmit,
@@ -30,6 +32,7 @@ function Login() {
     resolver: yupResolver(schema),
   });
 
+  // Function to load the contacts of the user when user login is success
   const loadUserContacts = (userId) => {
     getUserContacts(userId).then((contactsResponse) => {
       if(contactsResponse.flag) {
@@ -40,6 +43,8 @@ function Login() {
     })
   }
 
+  // Function is called when user submits the login form
+  // It will verify the user login details
   const formSubmit = (data) => {
     verifyUserLogin(data.phoneNo, data.password).then((backendResponse) => {
       if (backendResponse.flag) {

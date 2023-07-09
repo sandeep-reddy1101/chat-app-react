@@ -12,6 +12,9 @@ function Home() {
   const navigate = useNavigate();
   const dispatch = useDispatch()
 
+  // Function to check whether the user login and userId is present in the local storage or not
+  // If not present it will navigate to login page
+  // If present it will send the userId to the server for userId and socketId mapping
   const checkUserLogin = () => {
     const local = JSON.parse(getUserInfoFromLocal());
     if (!(local && local.login)) {

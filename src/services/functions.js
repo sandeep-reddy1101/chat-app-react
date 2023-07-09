@@ -1,5 +1,6 @@
-import { updateSearch, clearSearch } from "./../store";
+import { updateSearch } from "./../store";
 
+// Function to search the active and inactive contacts 
 const filterContactsUsingSerachedString = (contactsArr, searchedString, active) => {
     let resultArr = []
     resultArr = contactsArr.filter((contactInfo) => {
@@ -17,6 +18,7 @@ const filterContactsUsingSerachedString = (contactsArr, searchedString, active) 
     return resultArr
 }
 
+// Function to search the contacts based on searched text/string
 export const searchContacts = (searchedString, contactsArr, dispatch) => {
     if(contactsArr.length === 0){
         const actionPayload = {search: true, resultContacts: [], searchedString: searchedString};
@@ -25,12 +27,12 @@ export const searchContacts = (searchedString, contactsArr, dispatch) => {
         let resultArr = [[], []]
         resultArr[0] = filterContactsUsingSerachedString(contactsArr, searchedString, true);
         resultArr[1] = filterContactsUsingSerachedString(contactsArr, searchedString, false);
-        console.log("result array >>>> ",resultArr)
         const actionPayload = {search: true, resultContacts: resultArr, searchedString: searchedString};
         dispatch(updateSearch(actionPayload))
     }
 }
 
+// Function to filter and return the active chats.
 export const filterActiveChats = (contactsArr) => {
     if(contactsArr.length > 0){
         let resultArr = contactsArr.filter((contact) => {
@@ -46,6 +48,11 @@ export const filterActiveChats = (contactsArr) => {
     }
 }
 
+// Function to format the time
+// EX: 10:30 am (if its today)
+// EX: yesterday
+// Ex: monday (if it is in this week before yesterday)
+// Ex: mm/dd/yy (if it is before this week)
 export const formatTime = (timestamp) => {
     const now = new Date();
     const date = new Date(timestamp);
@@ -67,4 +74,12 @@ export const formatTime = (timestamp) => {
       const formattedDate = date.toLocaleDateString([], { month: 'numeric', day: 'numeric', year: '2-digit' });
       return formattedDate;
     }
+}
+
+// Function to sort the array based on time.
+// It will sort it in decending order i.e., latest time will be at the start
+export const sortArrayUsingTime = (arr) => {
+    arr.sort((a,b) => new Date(b.updatedAt) - new Date(a.updatedAt));
+    console.log(arr)
+    return arr
 }

@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getMessagesWithChatId } from "../../services/get";
 import { loadMessages, updateChat } from "../../store";
 import { formatTime } from "../../services/functions";
+import { setLastChatToLocal } from "../../services/localStorage";
 
 function ChatInfo({
   chatInformation
@@ -16,7 +17,7 @@ function ChatInfo({
   const loadMessageFromBackend = (chatId) => {
     getMessagesWithChatId(chatId).then((chatResponse) => {
       if(chatResponse.flag) {
-        dispatch(loadMessages(chatResponse.data.chat))
+        dispatch(loadMessages(chatResponse.data.chat));
       }else{
         console.log("Error occured while loading messages in chat info >>> ", chatResponse.message)
       }
@@ -35,6 +36,7 @@ function ChatInfo({
     };
     dispatch(updateChat(actionPayload));
     loadMessageFromBackend(chatInformation.chatId)
+    setLastChatToLocal(JSON.stringify(actionPayload))
   }
 
   return (

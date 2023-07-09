@@ -12,6 +12,7 @@ function Signup() {
 
   const navigate = useNavigate()
 
+  // Sign up form schema using yup
   const schema = yup.object().shape({
     firstName: yup.string().required("First Name is required"),
     lastName: yup.string().required("Last Name is required"),
@@ -27,6 +28,7 @@ function Signup() {
       .oneOf([yup.ref("password"), null], "Passwords must match"),
   });
 
+  // Creating the register and handleSubmit for the sign up form using above schema
   const {
     register,
     handleSubmit,
@@ -35,6 +37,8 @@ function Signup() {
     resolver: yupResolver(schema),
   });
 
+  // Function is called when user clicks on sign up button
+  // It wil insert the user/ add the user into the database
   const formSubmit = (data) => {
     insertUser(data.firstName, data.lastName, data.phoneNo, data.password).then(
       (backendResponse) => {

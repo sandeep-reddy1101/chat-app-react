@@ -1,12 +1,33 @@
 import React from 'react';
 import "./chats-list-header.css";
 
-import GroupsIcon from "@mui/icons-material/Groups";
-import DonutLargeIcon from "@mui/icons-material/DonutLarge";
 import MessageIcon from "@mui/icons-material/Message";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
+import PersonAddAlt1OutlinedIcon from '@mui/icons-material/PersonAddAlt1Outlined';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { removeLastChatFromLocal, removeUserInfoFromLocal } from '../../services/localStorage';
+import { clearChat, clearContacts, logout } from '../../store';
 
 function ChatsListHeader() {
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const addContact = () => {
+    navigate("/addcontact")
+  }
+
+  const handleSignOut = () => {
+    removeUserInfoFromLocal();
+    removeLastChatFromLocal();
+    dispatch(logout());
+    dispatch(clearChat());
+    dispatch(clearContacts());
+    navigate("/login");
+  }
+
   return (
     <div className="chat-list-header-container">
         <div className="chat-list-header">
@@ -18,10 +39,10 @@ function ChatsListHeader() {
               />
             </div>
             <div className="chat-list-header-icons">
-              <GroupsIcon className='icon'/>
-              <DonutLargeIcon className='icon'/>
-              <MessageIcon className='icon'/>
-              <MoreVertIcon className='icon'/>
+              <span onClick={handleSignOut}><LogoutOutlinedIcon className='icon'/></span>
+              <span onClick={addContact}><PersonAddAlt1OutlinedIcon className='icon'/></span>
+              <span><MessageIcon className='icon'/></span>
+              <span><MoreVertIcon className='icon'/></span>
             </div>
         </div>
       </div>

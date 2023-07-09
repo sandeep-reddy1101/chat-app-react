@@ -2,6 +2,7 @@ import axios from "axios";
 
 const backendAPI = "http://localhost:4200";
 
+// Function to send the axios request to verify the user login
 export const verifyUserLogin = (phoneNo, password) => {
   const body = {
     phoneNo: phoneNo,
@@ -15,6 +16,7 @@ export const verifyUserLogin = (phoneNo, password) => {
     });
 };
 
+// Function to send the axios request to fetch all the contacts of the user
 export const getUserContacts = (userId) => {
   return axios
     .get(`${backendAPI}/contacts/get-user-contacts/${userId}`)
@@ -24,6 +26,7 @@ export const getUserContacts = (userId) => {
     });
 };
 
+// Function to send the axios request for fetching the user information using userId
 export const getUserWithUserId = (userId) => {
   return axios
     .get(`${backendAPI}/users/get-user-with-userId/${userId}`)
@@ -33,7 +36,7 @@ export const getUserWithUserId = (userId) => {
     });
 }
 
-
+// Function to send the axios request to fetch the messsage of the chat based on chatId
 export const getMessagesWithChatId = (chatId) => {
   return axios
     .get(`${backendAPI}/chats/get-chat-with-chatId/${chatId}`)

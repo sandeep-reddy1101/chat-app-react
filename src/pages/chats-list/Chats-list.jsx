@@ -12,6 +12,7 @@ function ChatsList() {
   const contacts = useSelector((state) => state.contacts.value); 
   const searchResults = useSelector((state) => state.searchContacts.value);
 
+  // It will filter all the active contacts(chats) from all the user contacts
   const activeChats = filterActiveChats(contacts);
 
   return (

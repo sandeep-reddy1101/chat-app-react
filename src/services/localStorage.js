@@ -1,4 +1,4 @@
-const localKeys = { userInfo : "userInfo" }
+const localKeys = { userInfo : "userInfo", lastChat: "lastChat" }
 
 // Returns value from local storage based on key
 export const getUserInfoFromLocal = () => {
@@ -14,4 +14,17 @@ export const setUserInfoToLocal = (value) => {
 // Removes the key value pair from local storage
 export const removeUserInfoFromLocal = () => {
     localStorage.removeItem(localKeys.userInfo);
+}
+
+export const setLastChatToLocal = (chatObj) => {
+    localStorage.setItem(localKeys.lastChat, chatObj)
+}
+
+export const removeLastChatFromLocal = () => {
+    localStorage.removeItem(localKeys.lastChat)
+}
+
+export const getLastChatFromLocal = () => {
+    const value = localStorage.getItem(localKeys.lastChat);
+    return value
 }
